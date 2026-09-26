@@ -1,0 +1,29 @@
+# Зависимости
+node_modules/
+
+# База данных (растёт, содержит данные покупателей)
+data/*.json
+
+# Секреты
+.env
+.env.local
+.env.*.local
+
+# Закрытые ключи программ — НИКОГДА в git
+keys/*/закрытый.pem
+keys/*/*.pem
+!keys/*/открытый.pem
+
+# Логи
+*.log
+npm-debug.log*
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Сборка
+dist/
+build/
