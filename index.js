@@ -46,6 +46,22 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Тестовый эндпоинт для проверки отправки писем
+// GET /api/test-email?to=ваша@почта.com
+app.get('/api/test-email', async (req, res) => {
+  try {
+    const { sendTestEmail } = await import('./services/email.js');
+    const to = req.query.to || 'valentinaborisovna971@gmail.com';
+    const result = await sendTestEmail(to);
+    res.json({
+      target: to,
+      result,
+    });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Корень — небольшая страница-заглушка
 app.get('/', (req, res) => {
   res.send('Math Server is running');
