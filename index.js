@@ -1,7 +1,7 @@
-// ============================================================
-//  Math Server — точка входа
-//  Обслуживает сайт-витрину и программы MathApp
-// ============================================================
+// ======================================================
+// Math Server — точка входа
+// Обслуживает сайт-витрину и программы MathApp
+// ======================================================
 
 import 'dotenv/config';
 import express from 'express';
@@ -10,7 +10,7 @@ import cors from 'cors';
 import activateRoutes from './routes/activate.js';
 import webhookRoutes from './routes/webhook.js';
 
-// -------- Конфигурация --------
+// ---------- Конфигурация ----------
 const PORT = parseInt(process.env.PORT || '3001', 10);
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173')
   .split(',')
@@ -26,7 +26,7 @@ app.use(
   })
 );
 
-// -------- Роуты --------
+// ---------- Маршруты ----------
 
 // Вебхук должен идти ПЕРВЫМ, потому что ему нужен raw body
 app.use('/api/webhook', webhookRoutes);
@@ -67,23 +67,23 @@ app.get('/', (req, res) => {
   res.send('Math Server is running');
 });
 
-// -------- Обработка ошибок --------
+// ---------- Обработка ошибок ----------
 app.use((err, req, res, next) => {
   console.error('[error]', err.message);
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// -------- Запуск --------
+// ---------- Запуск ----------
 app.listen(PORT, () => {
-  console.log('========================================');
-  console.log('  Math Server');
-  console.log('  Порт:    ' + PORT);
-  console.log('  Режим:   ' + (process.env.NODE_ENV || 'development'));
-  console.log('  Origins: ' + ALLOWED_ORIGINS.join(', '));
-  console.log('========================================');
+  console.log('===========================================');
+  console.log(' Math Server');
+  console.log(' Порт: ' + PORT);
+  console.log(' Режим: ' + (process.env.NODE_ENV || 'development'));
+  console.log(' Origins: ' + ALLOWED_ORIGINS.join(', '));
+  console.log('===========================================');
 });
 
-// -------- Мягкое выключение --------
+// ---------- Мягкое выключение ----------
 process.on('SIGINT', () => {
   console.log('\n[server] Выключение...');
   process.exit(0);
